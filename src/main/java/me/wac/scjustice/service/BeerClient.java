@@ -12,7 +12,7 @@ public interface BeerClient {
     Mono<BeerPagedList> getBeers(Integer pageNumber, Integer pageSize,
                                  String beerName, BeerStyleEnum beerStyle, Boolean showInventoryOnHand);
 
-    Mono<ResponseEntity> createBear(Beer beer);
+    Mono<ResponseEntity<Void>> createBear(Beer beer);
 
     Mono<Beer> getBeer(UUID beerId, Boolean showInventoryOnHand);
 

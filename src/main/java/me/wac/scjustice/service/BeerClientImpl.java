@@ -7,8 +7,8 @@ import me.wac.scjustice.model.BeerPagedList;
 import me.wac.scjustice.model.BeerStyleEnum;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriBuilder;
 import reactor.core.publisher.Mono;
 
 import java.util.Optional;
@@ -37,8 +37,13 @@ public class BeerClientImpl implements BeerClient {
     }
 
     @Override
-    public Mono<ResponseEntity> createBear(Beer beer) {
-        return null;
+    public Mono<ResponseEntity<Void>> createBear(Beer beer) {
+
+        return webClient.post()
+                .uri(uriBuilder -> uriBuilder.path(WebClientProperties.BEER_V1_PATH).build())
+                .body(BodyInserters.fromValue(beer))
+                .retrieve()
+                .toBodilessEntity();
     }
 
     @Override
